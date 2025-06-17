@@ -9,15 +9,20 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Separator } from '../components/ui/separator';
-import { recipes } from '../data/recipes';
+import { recipes, getRecipeBySlug } from '../data/recipes';
 import SEOHead from '../components/SEOHead';
 import StarRating from '../components/StarRating';
 import ReviewsAndComments from '../components/ReviewsAndComments';
 import Breadcrumbs from '../components/Breadcrumbs';
 
 const RecipePage = () => {
-  const { recipeId } = useParams();
-  const recipe = recipes.find(r => r.id === parseInt(recipeId));
+  const { recipeSlug, recipeId } = useParams();
+  
+  // Support both new slug-based URLs and legacy ID-based URLs
+  const recipe = recipeSlug 
+    ? getRecipeBySlug(recipeSlug)
+    : recipes.find(r => r.id === parseInt(recipeId));
+    
   const [checkedIngredients, setCheckedIngredients] = useState(new Set());
   const [checkedInstructions, setCheckedInstructions] = useState(new Set());
   const [userRating, setUserRating] = useState(0);

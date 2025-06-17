@@ -17,10 +17,10 @@ const Header = () => {
 
   const navItems = [
     { name: 'Home', path: '/' },
-    { name: 'Savory', path: '/category/savory' },
-    { name: 'Dessert', path: '/category/dessert' },
-    { name: 'Ethnic', path: '/category/ethnic' },
-    { name: 'Healthy', path: '/category/healthy' },
+    { name: 'Savory', path: '/recipes/savory-rice-cakes' },
+    { name: 'Dessert', path: '/recipes/dessert-rice-cakes' },
+    { name: 'Ethnic', path: '/recipes/ethnic-international-rice-cakes' },
+    { name: 'Healthy', path: '/recipes/high-protein-low-cal-rice-cakes' },
     { name: 'About', path: '/about' }
   ];
 

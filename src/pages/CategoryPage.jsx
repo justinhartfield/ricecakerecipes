@@ -6,20 +6,26 @@ import { Button } from '../components/ui/button';
 import { Card, CardContent } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { recipes, categories } from '../data/recipes';
+import { recipes, categories, getCategoryBySlug, getRecipesByCategory } from '../data/recipes';
 import { Link } from 'react-router-dom';
 import SEOHead from '../components/SEOHead';
 import StarRating from '../components/StarRating';
 import Breadcrumbs from '../components/Breadcrumbs';
 
 const CategoryPage = () => {
-  const { categoryId } = useParams();
+  const { categorySlug, categoryId } = useParams();
   const [sortBy, setSortBy] = useState('rating');
   const [viewMode, setViewMode] = useState('grid');
   const [filterBy, setFilterBy] = useState('all');
 
-  const category = categories.find(cat => cat.id === categoryId);
-  const categoryRecipes = recipes.filter(recipe => recipe.category === categoryId);
+  // Support both new slug-based URLs and legacy ID-based URLs
+  const category = categorySlug 
+    ? getCategoryBySlug(categorySlug)
+    : categories.find(cat => cat.id === categoryId);
+    
+  const categoryRecipes = category 
+    ? getRecipesByCategory(category.id)
+    : [];
 
   // Sort recipes
   const sortedRecipes = [...categoryRecipes].sort((a, b) => {
@@ -192,7 +198,7 @@ const CategoryPage = () => {
           >
             {filteredRecipes.map((recipe) => (
               <motion.div key={recipe.id} variants={itemVariants}>
-                <Link to={`/recipe/${recipe.id}`}>
+                <Link to={`/recipe/${recipe.slug}`}>
                   {viewMode === 'grid' ? (
                     <Card className="group hover:shadow-2xl transition-all duration-500 overflow-hidden border-0 glass-effect">
                       <div className="relative overflow-hidden">

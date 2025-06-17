@@ -24,10 +24,13 @@ function App() {
         >
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/category/:categoryId" element={<CategoryPage />} />
-            <Route path="/recipe/:recipeId" element={<RecipePage />} />
+            <Route path="/recipes/:categorySlug" element={<CategoryPage />} />
+            <Route path="/recipe/:recipeSlug" element={<RecipePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/sitemap" element={<Sitemap />} />
+            {/* Legacy redirects for old URLs */}
+            <Route path="/category/:categoryId" element={<CategoryPage />} />
+            <Route path="/recipe/:recipeId" element={<RecipePage />} />
           </Routes>
         </motion.main>
         <Footer />

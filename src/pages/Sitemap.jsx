@@ -1,4 +1,5 @@
 import React from 'react';
+import { recipes, categories } from '../data/recipes';
 
 const Sitemap = () => {
   const sitemapData = [
@@ -11,27 +12,17 @@ const Sitemap = () => {
     },
     {
       title: "Recipe Categories",
-      links: [
-        { name: "Savory Rice Cakes", url: "/category/savory" },
-        { name: "Dessert Rice Cakes", url: "/category/dessert" },
-        { name: "Ethnic & International", url: "/category/ethnic" },
-        { name: "High-Protein & Low-Cal", url: "/category/healthy" }
-      ]
+      links: categories.map(category => ({
+        name: category.name,
+        url: `/recipes/${category.slug}`
+      }))
     },
     {
-      title: "Featured Recipes",
-      links: [
-        { name: "Korean-Style Spicy Cheese Tteokbokki Rice Cakes", url: "/recipe/1" },
-        { name: "Mediterranean Herb-Crusted Rice Cakes with Feta", url: "/recipe/2" },
-        { name: "Savory Breakfast Rice Cakes with Avocado and Poached Egg", url: "/recipe/3" },
-        { name: "Coconut Mango Sticky Rice Cakes", url: "/recipe/4" },
-        { name: "Chocolate Drizzled Protein Rice Cakes", url: "/recipe/5" },
-        { name: "Filipino Bibingka Rice Cakes with Salted Egg", url: "/recipe/6" },
-        { name: "Japanese-Inspired Matcha Rice Cakes with Red Bean", url: "/recipe/7" },
-        { name: "Greek Yogurt Protein Rice Cakes with Berries", url: "/recipe/8" },
-        { name: "Quinoa-Rice Power Cakes with Almond Butter", url: "/recipe/9" },
-        { name: "Spiced Cauliflower Rice Cakes (Low-Carb)", url: "/recipe/10" }
-      ]
+      title: "All Recipes",
+      links: recipes.map(recipe => ({
+        name: recipe.title,
+        url: `/recipe/${recipe.slug}`
+      }))
     }
   ];
 
@@ -47,7 +38,7 @@ const Sitemap = () => {
       section.links.forEach(link => {
         const priority = link.url === "/" ? "1.0" : 
                         link.url.includes("/recipe/") ? "0.8" :
-                        link.url.includes("/category/") ? "0.7" : "0.6";
+                        link.url.includes("/recipes/") ? "0.7" : "0.6";
         
         xml += `
   <url>

@@ -136,7 +136,7 @@ const HomePage = () => {
           >
             {categories.map((category, index) => (
               <motion.div key={category.id} variants={itemVariants}>
-                <Link to={`/category/${category.id}`}>
+                <Link to={`/recipes/${category.slug}`}>
                   <Card className="group hover:shadow-xl transition-all duration-300 glass-effect border-0 overflow-hidden">
                     <CardContent className="p-6 text-center">
                       <motion.div
@@ -188,7 +188,7 @@ const HomePage = () => {
           >
             {featuredRecipes.map((recipe, index) => (
               <motion.div key={recipe.id} variants={itemVariants}>
-                <Link to={`/recipe/${recipe.id}`}>
+                <Link to={`/recipe/${recipe.slug}`}>
                   <Card className="group hover:shadow-2xl transition-all duration-500 overflow-hidden border-0 glass-effect">
                     <div className="relative overflow-hidden">
                       <motion.img
